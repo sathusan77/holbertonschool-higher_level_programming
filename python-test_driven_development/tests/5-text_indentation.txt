@@ -1,0 +1,14 @@
+>>> text_indentation("Hello. World?")
+Hello.
+
+World?
+
+>>> text_indentation("Test: ok.")
+Test:
+
+ok.
+
+>>> text_indentation("No punctuation")
+No punctuation
+
+>>> text_indentation("")
