@@ -7,12 +7,34 @@ def text_indentation(text):
     if not isinstance(text, str):
         raise TypeError("text must be a string")
 
-    new_line = True  # True = we are at the start of a line
+    buf = ""
+    just_split = False
+
     for ch in text:
-        if ch == " " and new_line:
+        if ch == "\n":
+            if just_split:
+                just_split = False
+                continue
+
+            # flush current line (trim end) then print exactly one newline
+            if buf != "":
+                print(buf.rstrip(), end="")
+                buf = ""
+            print("", end="\n")  # exactly one newline
             continue
-        print(ch, end="")
-        new_line = False
+
+        if ch == " " and buf == "":
+            continue
+
         if ch in ".?:":
-            print("\n")
-            new_line = True
+            print(buf.rstrip() + ch, end="\n\n")
+            buf = ""
+            just_split = True
+            continue
+
+        buf += ch
+        just_split = False
+
+    # final flush: print WITHOUT adding newline
+    if buf != "":
+        print(buf.rstrip(), end="")
