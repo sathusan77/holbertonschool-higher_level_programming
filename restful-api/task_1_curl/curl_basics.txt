@@ -1,0 +1,21 @@
+CURL - BASICS AND INSTALLATION
+
+1. Installation :
+   - Ubuntu/Debian : sudo apt install curl
+   - Mac : brew install curl
+   - Windows : WSL ou télécharger depuis curl.se
+
+2. Vérification :
+   Commande : curl --version
+   
+   Sortie attendue :
+   curl 7.81.0 (x86_64-pc-linux-gnu)
+   Release-Date: 2022-01-05
+   Protocols: dict file ftp ftps gopher gophers http https imap imaps...
+   Features: AsynchDNS brotli GSS-API HTTP2 HTTPS-proxy IDN IPv6...
+
+3. Test basique :
+   Commande : curl http://example.com
+   
+   Description : Récupère le contenu HTML de la page
+   Sortie : Code HTML complet de example.com

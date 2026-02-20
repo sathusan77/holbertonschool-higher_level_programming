@@ -1,0 +1,54 @@
+1. GET
+   Description : Récupère des données du serveur
+   Use Case : Charger une page web, récupérer des données d'une API
+   Exemple : GET /api/users → Récupère la liste des utilisateurs
+   Caractéristiques : 
+   - Pas de body
+   - Idempotent (plusieurs appels = même résultat)
+   - Peut être mis en cache
+
+2. POST
+   Description : Envoie des données au serveur pour créer une ressource
+   Use Case : Soumettre un formulaire, créer un nouvel utilisateur
+   Exemple : POST /api/users → Crée un nouvel utilisateur
+   Caractéristiques :
+   - Contient un body avec les données
+   - Non idempotent (plusieurs appels = plusieurs créations)
+   - Ne peut pas être mis en cache
+
+3. PUT
+   Description : Met à jour complètement une ressource existante
+   Use Case : Modifier toutes les informations d'un utilisateur
+   Exemple : PUT /api/users/123 → Remplace toutes les données de l'utilisateur 123
+   Caractéristiques :
+   - Contient un body avec toutes les données
+   - Idempotent
+   - Remplace entièrement la ressource
+
+4. PATCH
+   Description : Met à jour partiellement une ressource existante
+   Use Case : Modifier uniquement l'email d'un utilisateur
+   Exemple : PATCH /api/users/123 → Modifie seulement certains champs
+   Caractéristiques :
+   - Contient un body avec les champs à modifier
+   - Plus efficient que PUT
+   - Modification partielle
+
+5. DELETE
+   Description : Supprime une ressource du serveur
+   Use Case : Supprimer un compte utilisateur
+   Exemple : DELETE /api/users/123 → Supprime l'utilisateur 123
+   Caractéristiques :
+   - Peut avoir un body (optionnel)
+   - Idempotent
+   - Retourne souvent 204 No Content
+
+6. HEAD
+   Description : Identique à GET mais retourne seulement les headers (pas le body)
+   Use Case : Vérifier si une ressource existe, obtenir metadata
+   Exemple : HEAD /api/users/123 → Vérifie si l'utilisateur existe
+
+7. OPTIONS
+   Description : Demande les méthodes HTTP supportées par une ressource
+   Use Case : CORS (Cross-Origin Resource Sharing), préflight requests
+   Exemple : OPTIONS /api/users → Retourne : GET, POST, PUT, DELETE

@@ -1,0 +1,67 @@
+CURL - HTTP METHODS AND HEADERS
+
+1. GET - Récupérer des données :
+   Commande : curl https://jsonplaceholder.typicode.com/posts/1
+   Description : Récupère une ressource
+   Options utiles :
+   - curl -i <url> : Affiche headers + body
+   - curl -I <url> : Affiche seulement les headers
+   - curl -v <url> : Mode verbose (debug)
+
+2. Headers uniquement (-I) :
+   Commande : curl -I https://jsonplaceholder.typicode.com/posts
+   
+   Sortie :
+   HTTP/2 200
+   content-type: application/json; charset=utf-8
+   cache-control: max-age=43200
+   
+   Utilité : Vérifier status code, content-type, cache, etc.
+
+3. POST - Créer une ressource :
+   
+   a) Avec form data :
+   Commande : curl -X POST -d "title=foo&body=bar&userId=1" \
+              https://jsonplaceholder.typicode.com/posts
+   
+   b) Avec JSON (recommandé) :
+   Commande : curl -X POST \
+              -H "Content-Type: application/json" \
+              -d '{"title":"New Post","body":"Content","userId":1}' \
+              https://jsonplaceholder.typicode.com/posts
+   
+   Sortie : {"title":"New Post","body":"Content","userId":1,"id":101}
+
+4. PUT - Remplacer complètement :
+   Commande : curl -X PUT \
+              -H "Content-Type: application/json" \
+              -d '{"id":1,"title":"Updated","body":"New body","userId":1}' \
+              https://jsonplaceholder.typicode.com/posts/1
+   
+   Description : Remplace toute la ressource
+
+5. PATCH - Modifier partiellement :
+   Commande : curl -X PATCH \
+              -H "Content-Type: application/json" \
+              -d '{"title":"Patched Title"}' \
+              https://jsonplaceholder.typicode.com/posts/1
+   
+   Description : Modifie seulement les champs spécifiés
+
+6. DELETE - Supprimer :
+   Commande : curl -X DELETE https://jsonplaceholder.typicode.com/posts/1
+   
+   Sortie : {}
+   Description : Supprime la ressource
+
+7. OPTIONS CURL UTILES :
+   -X <METHOD> : Spécifie la méthode HTTP
+   -H "Header: Value" : Ajoute un header
+   -d "data" : Envoie des données
+   -i : Inclut les headers dans la sortie
+   -I : Headers seulement
+   -v : Mode verbose (debug)
+   -o <file> : Sauvegarde la sortie dans un fichier
+   -s : Mode silencieux (pas de progress bar)
+   -L : Suit les redirections
+   --data-binary @file.json : Envoie le contenu d'un fichier

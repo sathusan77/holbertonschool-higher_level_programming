@@ -1,0 +1,39 @@
+===========================================
+RÉSUMÉ : BASICS OF HTTP/HTTPS
+===========================================
+
+1. DIFFÉRENCES HTTP vs HTTPS
+   - HTTP : Non sécurisé, port 80
+   - HTTPS : Sécurisé (SSL/TLS), port 443
+   - HTTPS protège contre l'interception et la modification des données
+
+2. STRUCTURE REQUÊTE HTTP
+   - Request Line : Méthode + Path + Version
+   - Headers : Métadonnées (Host, User-Agent, etc.)
+   - Body : Données (optionnel, pour POST/PUT/PATCH)
+
+3. STRUCTURE RÉPONSE HTTP
+   - Status Line : Version + Code Statut + Phrase
+   - Headers : Métadonnées (Content-Type, Server, etc.)
+   - Body : Contenu (HTML, JSON, etc.)
+
+4. MÉTHODES HTTP PRINCIPALES
+   - GET : Récupérer des données
+   - POST : Créer une ressource
+   - PUT : Remplacer complètement une ressource
+   - PATCH : Modifier partiellement une ressource
+   - DELETE : Supprimer une ressource
+
+5. CODES DE STATUT IMPORTANTS
+   - 200 OK : Succès
+   - 201 Created : Ressource créée
+   - 400 Bad Request : Requête invalide
+   - 401 Unauthorized : Non authentifié
+   - 404 Not Found : Ressource inexistante
+   - 500 Internal Server Error : Erreur serveur
+
+6. CONCEPTS CLÉS
+   - Idempotence : GET, PUT, DELETE (même résultat si répété)
+   - Non-idempotent : POST (crée à chaque fois)
+   - Cache : GET peut être mis en cache
+   - Sécurité : HTTPS indispensable pour données sensibles

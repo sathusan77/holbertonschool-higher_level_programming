@@ -1,0 +1,103 @@
+CODES DE STATUT HTTP COURANTS
+
+=== 1xx - INFORMATIONAL (Informatif) ===
+
+100 Continue
+Description : Le serveur a reçu les headers et le client peut continuer
+Scénario : Upload de gros fichiers, le serveur confirme qu'il est prêt
+
+---
+
+=== 2xx - SUCCESS (Succès) ===
+
+200 OK
+Description : La requête a réussi
+Scénario : GET /api/users → Retourne la liste des utilisateurs
+Exemple : Affichage d'une page web, récupération de données API
+
+201 Created
+Description : Ressource créée avec succès
+Scénario : POST /api/users → Nouvel utilisateur créé
+Exemple : Soumission d'un formulaire d'inscription
+
+204 No Content
+Description : Requête réussie mais pas de contenu à retourner
+Scénario : DELETE /api/users/123 → Utilisateur supprimé
+Exemple : Suppression d'un élément, mise à jour sans réponse
+
+---
+
+=== 3xx - REDIRECTION ===
+
+301 Moved Permanently
+Description : La ressource a été déplacée de façon permanente
+Scénario : http://example.com → https://example.com
+Exemple : Redirection HTTP vers HTTPS
+
+302 Found (Temporary Redirect)
+Description : Redirection temporaire
+Scénario : Page de maintenance temporaire
+Exemple : /old-page → /new-page (temporairement)
+
+304 Not Modified
+Description : La ressource n'a pas été modifiée (cache valide)
+Scénario : Le navigateur a une copie en cache encore valide
+Exemple : Optimisation de performance, réduction de bande passante
+
+---
+
+=== 4xx - CLIENT ERRORS (Erreurs Client) ===
+
+400 Bad Request
+Description : La requête est malformée ou invalide
+Scénario : POST /api/users avec JSON invalide
+Exemple : Champs obligatoires manquants, format de données incorrect
+
+401 Unauthorized
+Description : Authentification requise ou invalide
+Scénario : Accès à /api/profile sans token d'authentification
+Exemple : Tentative d'accès à une ressource protégée sans login
+
+403 Forbidden
+Description : Accès interdit même avec authentification
+Scénario : Utilisateur connecté mais sans permissions suffisantes
+Exemple : User normal tente d'accéder à /admin
+
+404 Not Found
+Description : La ressource demandée n'existe pas
+Scénario : GET /api/users/99999 (utilisateur inexistant)
+Exemple : Page web inexistante, URL mal tapée
+
+409 Conflict
+Description : Conflit avec l'état actuel de la ressource
+Scénario : POST /api/users avec email déjà utilisé
+Exemple : Tentative de création d'un doublon
+
+429 Too Many Requests
+Description : Trop de requêtes envoyées (rate limiting)
+Scénario : Appels API trop fréquents
+Exemple : Protection contre spam et DDoS
+
+---
+
+=== 5xx - SERVER ERRORS (Erreurs Serveur) ===
+
+500 Internal Server Error
+Description : Erreur générique du serveur
+Scénario : Exception non gérée dans le code serveur
+Exemple : Bug dans l'application, erreur de base de données
+
+502 Bad Gateway
+Description : Le serveur a reçu une réponse invalide d'un autre serveur
+Scénario : Le proxy/gateway ne peut pas atteindre le serveur backend
+Exemple : Service backend down, timeout
+
+503 Service Unavailable
+Description : Le serveur est temporairement indisponible
+Scénario : Maintenance programmée, surcharge serveur
+Exemple : Trop de trafic, serveur en cours de redémarrage
+
+504 Gateway Timeout
+Description : Le serveur n'a pas reçu de réponse à temps
+Scénario : Le serveur backend met trop de temps à répondre
+Exemple : Requête très lente, timeout réseau

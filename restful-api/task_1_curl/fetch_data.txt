@@ -1,0 +1,34 @@
+FETCHING DATA FROM API WITH CURL
+
+1. GET - Récupérer tous les posts :
+   Commande : curl https://jsonplaceholder.typicode.com/posts
+   
+   Description : Récupère la liste complète de tous les posts
+   Sortie : JSON array avec 100 posts
+   Chaque post contient : userId, id, title, body
+
+2. GET - Récupérer un seul post :
+   Commande : curl https://jsonplaceholder.typicode.com/posts/1
+   
+   Description : Récupère le post avec l'ID 1
+   Sortie :
+   {
+     "userId": 1,
+     "id": 1,
+     "title": "sunt aut facere...",
+     "body": "quia et suscipit..."
+   }
+
+3. Formater avec jq (optionnel) :
+   Commande : curl https://jsonplaceholder.typicode.com/posts/1 | jq
+   
+   Description : Formate et colore le JSON pour une meilleure lisibilité
+   Options utiles jq :
+   - jq '.' : Formate tout
+   - jq '.title' : Extrait seulement le titre
+   - jq '.[] | {id, title}' : Extrait id et title de chaque élément
+
+4. Sauvegarder dans un fichier :
+   Commande : curl https://jsonplaceholder.typicode.com/posts/1 > post1.json
+   
+   Description : Sauvegarde la réponse dans un fichier

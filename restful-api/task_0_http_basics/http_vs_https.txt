@@ -1,0 +1,25 @@
+DIFFÉRENCES HTTP vs HTTPS
+
+1. Sécurité :
+   - HTTP : Non sécurisé, données en texte clair
+   - HTTPS : Sécurisé, chiffrement SSL/TLS
+
+2. Port :
+   - HTTP : Port 80
+   - HTTPS : Port 443
+
+3. Certificat :
+   - HTTP : Aucun certificat requis
+   - HTTPS : Certificat SSL/TLS requis
+
+4. Usage :
+   - HTTP : Sites publics, contenu non sensible
+   - HTTPS : Sites avec données sensibles (banques, emails, e-commerce)
+
+5. Performance :
+   - HTTP : Légèrement plus rapide (pas de chiffrement)
+   - HTTPS : Léger overhead dû au chiffrement (négligeable aujourd'hui)
+
+6. SEO :
+   - HTTP : Pénalisé par Google
+   - HTTPS : Favorisé par les moteurs de recherche

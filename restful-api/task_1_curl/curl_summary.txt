@@ -1,0 +1,48 @@
+===========================================
+RÉSUMÉ : CURL - API CONSUMPTION
+===========================================
+
+1. INSTALLATION
+   sudo apt install curl jq
+
+2. COMMANDES DE BASE
+   - curl --version : Vérifier l'installation
+   - curl <url> : Récupérer le contenu
+   - curl -I <url> : Headers seulement
+   - curl -v <url> : Mode verbose (debug)
+
+3. MÉTHODES HTTP
+   GET    : curl https://api.com/posts
+   POST   : curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' <url>
+   PUT    : curl -X PUT -H "Content-Type: application/json" -d '{"key":"value"}' <url>
+   PATCH  : curl -X PATCH -H "Content-Type: application/json" -d '{"key":"value"}' <url>
+   DELETE : curl -X DELETE <url>
+
+4. OPTIONS IMPORTANTES
+   -X <METHOD> : Méthode HTTP
+   -H "Header: Value" : Ajouter un header
+   -d "data" : Envoyer des données
+   -i : Inclure headers dans sortie
+   -I : Headers seulement
+   -v : Verbose
+   -s : Silencieux
+   -o file : Sauvegarder dans un fichier
+   | jq : Formater JSON
+
+5. EXEMPLES PRATIQUES
+   # GET formaté
+   curl -s https://jsonplaceholder.typicode.com/posts/1 | jq '.'
+   
+   # POST JSON
+   curl -X POST -H "Content-Type: application/json" \
+     -d '{"title":"Test","body":"Body","userId":1}' \
+     https://jsonplaceholder.typicode.com/posts
+   
+   # Sauvegarder réponse
+   curl https://jsonplaceholder.typicode.com/posts/1 > post.json
+
+6. CODES DE STATUT (visible avec -I ou -v)
+   200 : OK
+   201 : Created
+   404 : Not Found
+   500 : Server Error

@@ -1,0 +1,40 @@
+STRUCTURE D'UNE REQUÊTE HTTP
+
+1. Request Line (Ligne de requête) :
+   Méthode Path Version
+   Exemple : GET /index.html HTTP/1.1
+
+2. Request Headers (En-têtes de requête) :
+   Host: www.example.com
+   User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+   Accept: text/html,application/json
+   Accept-Language: fr-FR,fr;q=0.9,en;q=0.8
+   Cookie: session_id=abc123
+
+3. Request Body (Corps - optionnel) :
+   Données envoyées (pour POST, PUT, PATCH)
+   Exemple : {"username": "john", "password": "secret"}
+
+---
+
+STRUCTURE D'UNE RÉPONSE HTTP
+
+1. Status Line (Ligne de statut) :
+   Version StatusCode ReasonPhrase
+   Exemple : HTTP/1.1 200 OK
+
+2. Response Headers (En-têtes de réponse) :
+   Content-Type: text/html; charset=UTF-8
+   Content-Length: 1256
+   Server: Apache/2.4.41
+   Set-Cookie: session_id=xyz789; HttpOnly
+   Cache-Control: max-age=3600
+
+3. Response Body (Corps) :
+   Le contenu réel (HTML, JSON, XML, etc.)
+   Exemple : 
+   <!DOCTYPE html>
+   <html>
+   <head><title>Page</title></head>
+   <body>Hello World</body>
+   </html>
