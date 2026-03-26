@@ -1,69 +1,77 @@
-#!/usr/bin/python3
-"""Flask application with JSON, CSV, and SQLite data sources."""
+from flask import Flask, render_template, request
 import json
 import csv
 import sqlite3
-from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-
-def read_json():
-    """Read products from JSON file."""
+# -------- JSON --------
+def get_products_from_json():
     try:
-        with open('products.json', 'r') as f:
+        with open('products.json') as f:
             return json.load(f)
     except Exception:
-        return []
+        return None
 
-
-def read_csv():
-    """Read products from CSV file."""
+# -------- CSV --------
+def get_products_from_csv():
     try:
         products = []
-        with open('products.csv', 'r') as f:
+        with open('products.csv') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                row['price'] = float(row['price'])
-                row['id'] = int(row['id'])
                 products.append(row)
         return products
     except Exception:
-        return []
+        return None
 
-
-def read_sql():
-    """Read products from SQLite database."""
+# -------- SQLITE --------
+def get_products_from_db():
     try:
         conn = sqlite3.connect('products.db')
-        conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM Products')
+
+        cursor.execute("SELECT id, name, category, price FROM Products")
         rows = cursor.fetchall()
+
         conn.close()
-        return [dict(row) for row in rows]
-    except Exception:
-        return []
 
+        products = []
+        for row in rows:
+            products.append({
+                "id": row[0],
+                "name": row[1],
+                "category": row[2],
+                "price": row[3]
+            })
 
+        return products
+
+    except sqlite3.Error:
+        return None
+
+# -------- ROUTE --------
 @app.route('/products')
 def products():
-    """Render products page with data from the specified source."""
     source = request.args.get('source')
-    error = None
-    data = []
 
     if source == 'json':
-        data = read_json()
+        data = get_products_from_json()
+
     elif source == 'csv':
-        data = read_csv()
+        data = get_products_from_csv()
+
     elif source == 'sql':
-        data = read_sql()
+        data = get_products_from_db()
+
     else:
-        error = 'Wrong source'
+        return render_template('product_display.html', error="Wrong source")
 
-    return render_template('product_display.html', products=data, error=error)
+    if data is None:
+        return render_template('product_display.html', error="Error loading data")
 
+    return render_template('product_display.html', products=data)
 
+# -------- RUN --------
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True)
