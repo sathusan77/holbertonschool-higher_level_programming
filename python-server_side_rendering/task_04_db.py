@@ -5,28 +5,30 @@ import sqlite3
 
 app = Flask(__name__)
 
-# -------- JSON --------
-def get_products_from_json():
+# ---------------- JSON ----------------
+def read_json():
     try:
-        with open('products.json') as f:
+        with open('products.json', 'r') as f:
             return json.load(f)
     except Exception:
         return None
 
-# -------- CSV --------
-def get_products_from_csv():
+# ---------------- CSV ----------------
+def read_csv():
     try:
         products = []
-        with open('products.csv') as f:
+        with open('products.csv', 'r') as f:
             reader = csv.DictReader(f)
             for row in reader:
+                row["id"] = int(row["id"])
+                row["price"] = float(row["price"])
                 products.append(row)
         return products
     except Exception:
         return None
 
-# -------- SQLITE --------
-def get_products_from_db():
+# ---------------- SQL (SQLite) ----------------
+def read_sql():
     try:
         conn = sqlite3.connect('products.db')
         cursor = conn.cursor()
@@ -50,19 +52,19 @@ def get_products_from_db():
     except sqlite3.Error:
         return None
 
-# -------- ROUTE --------
+# ---------------- ROUTE ----------------
 @app.route('/products')
 def products():
     source = request.args.get('source')
 
-    if source == 'json':
-        data = get_products_from_json()
+    if source == "json":
+        data = read_json()
 
-    elif source == 'csv':
-        data = get_products_from_csv()
+    elif source == "csv":
+        data = read_csv()
 
-    elif source == 'sql':
-        data = get_products_from_db()
+    elif source == "sql":
+        data = read_sql()
 
     else:
         return render_template('product_display.html', error="Wrong source")
@@ -72,6 +74,6 @@ def products():
 
     return render_template('product_display.html', products=data)
 
-# -------- RUN --------
+# ---------------- RUN ----------------
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
