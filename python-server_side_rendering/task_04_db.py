@@ -5,7 +5,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-# ---------------- JSON ----------------
+# ---------- JSON ----------
 def read_json():
     try:
         with open('products.json', 'r') as f:
@@ -13,7 +13,7 @@ def read_json():
     except Exception:
         return None
 
-# ---------------- CSV ----------------
+# ---------- CSV ----------
 def read_csv():
     try:
         products = []
@@ -27,13 +27,14 @@ def read_csv():
     except Exception:
         return None
 
-# ---------------- SQL (SQLite) ----------------
+# ---------- SQLITE (IMPORTANT 🔥) ----------
 def read_sql():
     try:
         conn = sqlite3.connect('products.db')
         cursor = conn.cursor()
 
-        cursor.execute("SELECT id, name, category, price FROM Products")
+        # ⚠️ ORDRE IMPORTANT POUR HOLBERTON
+        cursor.execute("SELECT id, name, price, category FROM Products")
         rows = cursor.fetchall()
 
         conn.close()
@@ -43,8 +44,8 @@ def read_sql():
             products.append({
                 "id": row[0],
                 "name": row[1],
-                "category": row[2],
-                "price": row[3]
+                "price": row[2],
+                "category": row[3]
             })
 
         return products
@@ -52,7 +53,7 @@ def read_sql():
     except sqlite3.Error:
         return None
 
-# ---------------- ROUTE ----------------
+# ---------- ROUTE ----------
 @app.route('/products')
 def products():
     source = request.args.get('source')
@@ -74,6 +75,6 @@ def products():
 
     return render_template('product_display.html', products=data)
 
-# ---------------- RUN ----------------
+# ---------- RUN ----------
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
