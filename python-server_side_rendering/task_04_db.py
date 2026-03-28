@@ -27,13 +27,13 @@ def read_csv():
     except Exception:
         return None
 
-# ---------- SQLITE (IMPORTANT 🔥) ----------
+# ---------- SQLITE ----------
 def read_sql():
     try:
         conn = sqlite3.connect('products.db')
         cursor = conn.cursor()
 
-        # ⚠️ ORDRE IMPORTANT POUR HOLBERTON
+        # ⚠️ ORDRE IMPORTANT
         cursor.execute("SELECT id, name, price, category FROM Products")
         rows = cursor.fetchall()
 
@@ -57,6 +57,7 @@ def read_sql():
 @app.route('/products')
 def products():
     source = request.args.get('source')
+    id_param = request.args.get('id')
 
     if source == "json":
         data = read_json()
@@ -72,6 +73,19 @@ def products():
 
     if data is None:
         return render_template('product_display.html', error="Error loading data")
+
+    if id_param:
+        try:
+            id_param = int(id_param)
+            filtered = [p for p in data if int(p["id"]) == id_param]
+
+            if not filtered:
+                return render_template('product_display.html', error="Product not found")
+
+            data = filtered
+
+        except ValueError:
+            return render_template('product_display.html', error="Invalid id")
 
     return render_template('product_display.html', products=data)
 
